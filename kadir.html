@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menteş Firm | Law & Counsel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 50: '#f0f3f9', 100: '#d9e1f0', 200: '#b3c3e0', 300: '#8da5d0', 400: '#6787c0', 500: '#4169b0', 600: '#1b3a5c', 700: '#152e4a', 800: '#0f2238', 900: '#091626' },
+                        gold: { 50: '#fdf9ef', 100: '#f9efd2', 200: '#f0d9a4', 300: '#e7c376', 400: '#dead48', 500: '#c9a23e', 600: '#a3822e', 700: '#7d6322', 800: '#574416', 900: '#31250b' },
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(9,22,38,0.92) 0%, rgba(15,34,56,0.88) 50%, rgba(27,58,92,0.85) 100%),
+                        url('http://static.photos/cityscape/1200x630/77');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #c9a23e, #dead48, #c9a23e);
+        }
+        .gold-line-center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .team-card:hover .team-img {
+            transform: scale(1.05);
+        }
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+        .practice-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .practice-card:hover .practice-icon {
+            background-color: #c9a23e;
+            color: #fff;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c9a23e;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .stat-item:hover .stat-number {
+            color: #c9a23e;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
+        .animate-delay-4 { animation-delay: 0.4s; }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Testimonial slider */
+        .testimonial-slide {
+            display: none;
+        }
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gold-500 flex items-center justify-center">
+                        <span class="font-playfair text-white text-xl font-bold">M</span>
+                    </div>
+                    <div>
+                        <span class="font-playfair text-xl font-bold text-white tracking-wide">MENTEŞ</span>
+                        <span class="font-playfair text-xl font-light text-gold-400 tracking-wide ml-1">FIRM</span>
+                    </div>
+                </a>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="nav-link text-white text-sm font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-white text-sm font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">About</a>
+                    <a href="#practice" class="nav-link text-white text-sm font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Practice</a>
+                    <a href="#team" class="nav-link text-white text-sm font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Team</a>
+                    <a href="#testimonials" class="nav-link text-white text-sm font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Testimonials</a>
+                    <a href="#contact" class="bg-gold-500 hover:bg-gold-600 text-white text-sm font-semibold px-6 py-2.5 tracking-wider uppercase transition-colors">Contact Us</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-navy-900 z-50 shadow-2xl">
+        <div class="p-6">
+            <button id="closeMenu" class="text-white float-right">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="clear-both pt-10 flex flex-col gap-6">
+                <a href="#home" class="mobile-link text-white text-lg font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Home</a>
+                <a href="#about" class="mobile-link text-white text-lg font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">About</a>
+                <a href="#practice" class="mobile-link text-white text-lg font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Practice</a>
+                <a href="#team" class="mobile-link text-white text-lg font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Team</a>
+                <a href="#testimonials" class="mobile-link text-white text-lg font-medium tracking-wider uppercase hover:text-gold-400 transition-colors">Testimonials</a>
+                <a href="#contact" class="bg-gold-500 hover:bg-gold-600 text-white text-center text-sm font-semibold px-6 py-3 tracking-wider uppercase transition-colors mt-4">Contact Us</a>
+            </div>
+        </div>
+    </div>
+    <div id="menuOverlay" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+            <div class="max-w-3xl">
+                <div class="gold-line mb-6 animate-fade-in-up"></div>
+                <p class="text-gold-400 text-sm font-semibold tracking-[0.3em] uppercase mb-4 animate-fade-in-up animate-delay-1">Experienced Legal Counsel</p>
+                <h1 class="font-playfair text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 animate-fade-in-up animate-delay-2">
+                    Your Rights,<br>Our <span class="text-gold-400">Priority</span>
+                </h1>
+                <p class="text-gray-300 text-lg sm:text-xl leading-relaxed mb-10 max-w-xl animate-fade-in-up animate-delay-3">
+                    Mentes Firm delivers strategic legal solutions with integrity and dedication. We stand by your side when it matters most.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-4">
+                    <a href="#contact" class="bg-gold-500 hover:bg-gold-600 text-white text-sm font-semibold px-8 py-4 tracking-wider uppercase transition-all text-center">
+                        Free Consultation
+                    </a>
+                    <a href="#practice" class="border border-white/30 hover:border-gold-400 text-white hover:text-gold-400 text-sm font-semibold px-8 py-4 tracking-wider uppercase transition-all text-center">
+                        Our Practice Areas
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span class="text-white/50 text-xs tracking-widest uppercase">Scroll</span>
+            <div class="w-px h-10 bg-gradient-to-b from-gold-400 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="bg-navy-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stat-item text-center">
+                    <p class="stat-number font-playfair text-3xl sm:text-4xl font-bold text-white transition-colors duration-300">25+</p>
+                    <p class="text-gray-400 text-sm tracking-wider uppercase mt-1">Years Experience</p>
+                </div>
+                <div class="stat-item text-center">
+                    <p class="stat-number font-playfair text-3xl sm:text-4xl font-bold text-white transition-colors duration-300">1800+</p>
+                    <p class="text-gray-400 text-sm tracking-wider uppercase mt-1">Cases Won</p>
+                </div>
+                <div class="stat-item text-center">
+                    <p class="stat-number font-playfair text-3xl sm:text-4xl font-bold text-white transition-colors duration-300">98%</p>
+                    <p class="text-gray-400 text-sm tracking-wider uppercase mt-1">Success Rate</p>
+                </div>
+                <div class="stat-item text-center">
+                    <p class="stat-number font-playfair text-3xl sm:text-4xl font-bold text-white transition-colors duration-300">15+</p>
+                    <p class="text-gray-400 text-sm tracking-wider uppercase mt-1">Legal Experts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image -->
+                <div class="relative">
+                    <div class="overflow-hidden">
+                        <!-- //change here -->
+                        <img src="http://static.photos/office/640x360/55" alt="Mentes Firm Office" class="w-full h-[500px] object-cover">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-gold-500 p-8 text-center hidden sm:block">
+                        <p class="font-playfair text-4xl font-bold text-white">25+</p>
+                        <p class="text-white/90 text-sm tracking-wider uppercase mt-1">Years of<br>Excellence</p>
+                    </div>
+                    <div class="absolute top-6 left-6 w-20 h-20 border-2 border-gold-500/30"></div>
+                </div>
+                <!-- Content -->
+                <div>
+                    <div class="gold-line mb-4"></div>
+                    <p class="text-gold-500 text-sm font-semibold tracking-[0.2em] uppercase mb-3">About Our Firm</p>
+                    <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-navy-900 leading-tight mb-6">
+                        Dedicated to Justice,<br>Committed to You
+                    </h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        Founded on the principles of integrity, excellence, and unwavering commitment to our clients, Mentes Firm has established itself as a premier legal practice. We combine deep legal expertise with a genuine understanding of our clients' needs.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Our team of seasoned attorneys brings decades of collective experience across multiple practice areas. We believe that every client deserves personalized attention and robust legal representation, regardless of the complexity of the case.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0"></i>
+                            <span class="text-gray-700">Personalized Legal Strategy</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0"></i>
+                            <span class="text-gray-700">Aggressive Courtroom Advocacy</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0"></i>
+                            <span class="text-gray-700">Transparent Communication</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0"></i>
+                            <span class="text-gray-700">Proven Track Record</span>
+                        </div>
+                    </div>
+                    <a href="#contact" class="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white text-sm font-semibold px-8 py-4 tracking-wider uppercase transition-colors">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Areas -->
+    <section id="practice" class="py-20 lg:py-28 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="gold-line gold-line-center mb-4"></div>
+                <p class="text-gold-500 text-sm font-semibold tracking-[0.2em] uppercase mb-3">What We Do</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-navy-900">Practice Areas</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our firm offers comprehensive legal services across a wide range of practice areas to meet your diverse needs.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="scale" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Corporate Law</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Expert guidance on business formations, mergers, acquisitions, and corporate governance matters.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Card 2 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Criminal Defense</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Vigorous defense strategies protecting your rights and freedom in criminal proceedings.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Card 3 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="home" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Real Estate Law</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Comprehensive legal support for property transactions, disputes, and zoning issues.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Card 4 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Family Law</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Compassionate representation in divorce, custody, adoption, and other family matters.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Card 5 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Personal Injury</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Fighting for maximum compensation for accident victims and their families.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Card 6 -->
+                <div class="practice-card bg-white p-8 transition-all duration-300 group cursor-pointer">
+                    <div class="practice-icon w-14 h-14 bg-gold-50 text-gold-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-navy-900 mb-3">Employment Law</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">Protecting employee rights and advising employers on labor law compliance.</p>
+                    <a href="#contact" class="text-gold-500 text-sm font-semibold tracking-wider uppercase inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="gold-line gold-line-center mb-4"></div>
+                <p class="text-gold-500 text-sm font-semibold tracking-[0.2em] uppercase mb-3">Our Attorneys</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-navy-900">Meet The Team</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our experienced legal professionals are dedicated to providing you with the best possible representation.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Lawyer 1 - Kadir Mentes (Featured) -->
+                <div class="team-card group cursor-pointer lg:col-span-2 lg:row-span-2">
+                    <div class="relative overflow-hidden h-full min-h-[500px] lg:min-h-full">
+                        <img src="http://static.photos/people/640x360/101" alt="Kadir Mentes" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="team-overlay absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-8">
+                            <span class="inline-block bg-gold-500 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1 mb-3">Founding Partner</span>
+                            <h3 class="font-playfair text-2xl lg:text-3xl font-bold text-white mb-1">Kadir Mentes</h3>
+                            <p class="text-gold-400 text-sm tracking-wider uppercase mb-3">Associate Attorney</p>
+                            <p class="text-gray-300 text-sm leading-relaxed max-w-md mb-4">With over 20 years of litigation experience, Kadir Mentes founded the firm on a vision of accessible, justice-driven legal representation.</p>
+                            <div class="flex gap-3">
+                                <a href="#" class="w-9 h-9 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                                </a>
+                                <a href="#" class="w-9 h-9 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="mail" class="w-4 h-4 text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 2 -->
+                <div class="team-card group cursor-pointer">
+                    <div class="relative overflow-hidden h-80">
+                        <!-- <img src="http://static.photos/people/640x360/202" alt="Elena Rodriguez" class="team-img w-full h-full object-cover transition-transform duration-500"> -->
+                        <div class="team-overlay absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="font-playfair text-xl font-bold text-white mb-0.5">Elena Rodriguez</h3>
+                            <p class="text-gold-400 text-xs tracking-wider uppercase mb-3">Senior Partner</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 3 -->
+                <div class="team-card group cursor-pointer">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="http://static.photos/people/640x360/305" alt="James Carter" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="team-overlay absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="font-playfair text-xl font-bold text-white mb-0.5">James Carter</h3>
+                            <p class="text-gold-400 text-xs tracking-wider uppercase mb-3">Criminal Defense Lead</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 4 -->
+                <div class="team-card group cursor-pointer">
+                    <div class="relative overflow-hidden h-80">
+                        <!-- <img src="http://static.photos/people/640x360/404" alt="Sarah Mitchell" class="team-img w-full h-full object-cover transition-transform duration-500"> -->
+                        <div class="team-overlay absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="font-playfair text-xl font-bold text-white mb-0.5">Sarah Mitchell</h3>
+                            <p class="text-gold-400 text-xs tracking-wider uppercase mb-3">Family Law Specialist</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 5 -->
+                <!-- <div class="team-card group cursor-pointer">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="http://static.photos/people/640x360/507" alt="David Okonkwo" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="team-overlay absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="font-playfair text-xl font-bold text-white mb-0.5">David Okonkwo</h3>
+                            <p class="text-gold-400 text-xs tracking-wider uppercase mb-3">Corporate Attorney</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-white/10 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="relative py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-navy-900"></div>
+        <div class="absolute inset-0" style="background: url('http://static.photos/cityscape/1200x630/99') center/cover; opacity: 0.15;"></div>
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="gold-line gold-line-center mb-6"></div>
+            <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+                Need Legal Assistance?<br>We're Here to Help.
+            </h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-10">
+                Don't face your legal challenges alone. Schedule a free, confidential consultation with one of our experienced attorneys today.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-gold-500 hover:bg-gold-600 text-white text-sm font-semibold px-8 py-4 tracking-wider uppercase transition-colors">
+                    Schedule Consultation
+                </a>
+                <a href="https://wa.me/905305878216?text=How%20can%20we%20represent%20you?%0ANas%C4%B1l%20temsil%20edebiliriz?" target="_blank" class="border border-white/30 hover:border-gold-400 text-white hover:text-gold-400 text-sm font-semibold px-8 py-4 tracking-wider uppercase transition-all inline-flex items-center justify-center gap-2">
+                    <i data-lucide="phone" class="w-4 h-4"></i> Call Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 lg:py-28 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="gold-line gold-line-center mb-4"></div>
+                <p class="text-gold-500 text-sm font-semibold tracking-[0.2em] uppercase mb-3">Testimonials</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-navy-900">What Our Clients Say</h2>
+            </div>
+            <div class="max-w-3xl mx-auto relative">
+                <div id="testimonialContainer">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide active">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-6">
+                                <i data-lucide="quote" class="w-12 h-12 text-gold-400/30"></i>
+                            </div>
+                            <p class="text-gray-700 text-xl leading-relaxed mb-8 italic">"Mentes Firm handled my corporate merger with absolute professionalism. Their attention to detail and strategic approach saved us millions. I wouldn't trust any other firm with my business interests."</p>
+                            <div class="flex justify-center mb-2">
+                                <div class="flex gap-1">
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                </div>
+                            </div>
+                            <p class="font-playfair text-lg font-bold text-navy-900">Michael Thompson</p>
+                            <p class="text-gray-500 text-sm">CEO, Thompson Enterprises</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-6">
+                                <i data-lucide="quote" class="w-12 h-12 text-gold-400/30"></i>
+                            </div>
+                            <p class="text-gray-700 text-xl leading-relaxed mb-8 italic">"After my accident, Kadir Mentes personally ensured I received the compensation I deserved. The entire team was compassionate, responsive, and incredibly thorough throughout the process."</p>
+                            <div class="flex justify-center mb-2">
+                                <div class="flex gap-1">
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                </div>
+                            </div>
+                            <p class="font-playfair text-lg font-bold text-navy-900">Rebecca Lawson</p>
+                            <p class="text-gray-500 text-sm">Personal Injury Client</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-6">
+                                <i data-lucide="quote" class="w-12 h-12 text-gold-400/30"></i>
+                            </div>
+                            <p class="text-gray-700 text-xl leading-relaxed mb-8 italic">"The family law team at Mentes Firm guided me through the most difficult period of my life with grace and expertise. They truly care about their clients as people, not just cases."</p>
+                            <div class="flex justify-center mb-2">
+                                <div class="flex gap-1">
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                    <i data-lucide="star" class="w-5 h-5 text-gold-500 fill-gold-500"></i>
+                                </div>
+                            </div>
+                            <p class="font-playfair text-lg font-bold text-navy-900">Amanda Analodu</p>
+                            <p class="text-gray-500 text-sm">Family Law Client</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nav arrows -->
+                <div class="flex justify-center gap-4 mt-10">
+                    <button id="prevSlide" class="w-12 h-12 border border-gray-300 hover:border-gold-500 hover:bg-gold-500 flex items-center justify-center transition-all group">
+                        <i data-lucide="chevron-left" class="w-5 h-5 text-gray-400 group-hover:text-white"></i>
+                    </button>
+                    <button id="nextSlide" class="w-12 h-12 border border-gray-300 hover:border-gold-500 hover:bg-gold-500 flex items-center justify-center transition-all group">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 group-hover:text-white"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div>
+                    <div class="gold-line mb-4"></div>
+                    <p class="text-gold-500 text-sm font-semibold tracking-[0.2em] uppercase mb-3">Get In Touch</p>
+                    <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-navy-900 leading-tight mb-6">Schedule Your<br>Free Consultation</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-10">Take the first step toward resolving your legal matter. Contact us today for a confidential consultation.</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gold-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy-900 mb-1">Visit Us</h4>
+                                <p class="text-gray-600">Dr.F Muhittin Adam Street, <br>konak İzmir, TKR.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-gold-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy-900 mb-1">Call Us</h4>
+                                <a href="https://wa.me/905305878216?text=How%20can%20we%20represent%20you?%0ANas%C4%B1l%20temsil%20edebiliriz?" target="_blank" class="text-gray-600 hover:text-gold-500 transition-colors">+90 5305 878 216 <br></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5 text-gold-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy-900 mb-1">Email Us</h4>
+                                <p class="text-gray-600">info@mentesfirm.com<br>kadirmantes@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="clock" class="w-5 h-5 text-gold-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy-900 mb-1">Office Hours</h4>
+                                <p class="text-gray-600">Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-gray-50 p-8 lg:p-10">
+                    <h3 class="font-playfair text-2xl font-bold text-navy-900 mb-6">Send Us a Message</h3>
+                    <form id="contactForm" class="space-y-5">
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-navy-900 mb-1.5">First Name *</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-navy-900 mb-1.5">Last Name *</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy-900 mb-1.5">Email Address *</label>
+                            <input type="email" required class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy-900 mb-1.5">Phone Number</label>
+                            <input type="tel" class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors" placeholder="+90 (530   ) 000-0000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy-900 mb-1.5">Practice Area</label>
+                            <select class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors">
+                                <option value="">Select a practice area</option>
+                                <option>Corporate Law</option>
+                                <option>Criminal Defense</option>
+                                <option>Real Estate Law</option>
+                                <option>Family Law</option>
+                                <option>Personal Injury</option>
+                                <option>Employment Law</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy-900 mb-1.5">Your Message *</label>
+                            <textarea required rows="4" class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-800 focus:border-gold-500 focus:outline-none transition-colors resize-none" placeholder="Tell us about your legal matter..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-white text-sm font-semibold py-4 tracking-wider uppercase transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Submit Message
+                        </button>
+                    </form>
+                    <div id="formSuccess" class="hidden mt-6 bg-green-50 border border-green-200 p-4 text-center">
+                        <i data-lucide="check-circle" class="w-8 h-8 text-green-500 mx-auto mb-2"></i>
+                        <p class="text-green-700 font-semibold">Message sent successfully!</p>
+                        <p class="text-green-600 text-sm">We'll get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <!-- Logo & About -->
+                <div class="lg:col-span-2">
+                    <a href="#home" class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 bg-gold-500 flex items-center justify-center">
+                            <span class="font-playfair text-white text-xl font-bold">M</span>
+                        </div>
+                        <div>
+                            <span class="font-playfair text-xl font-bold text-white tracking-wide">MENTES</span>
+                            <span class="font-playfair text-xl font-light text-gold-400 tracking-wide ml-1">FIRM</span>
+                        </div>
+                    </a>
+                    <p class="text-gray-400 leading-relaxed max-w-sm mb-6">Providing exceptional legal representation with integrity and dedication. Your fight is our fight.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                            <i data-lucide="facebook" class="w-4 h-4 text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4 text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                            <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 flex items-center justify-center transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4 text-white"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm tracking-wider uppercase mb-5">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">About Us</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Practice Areas</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Our Team</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Testimonials</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Practice Areas -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm tracking-wider uppercase mb-5">Practice Areas</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Corporate Law</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Criminal Defense</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Real Estate Law</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Family Law</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Personal Injury</a></li>
+                        <li><a href="#practice" class="text-gray-400 hover:text-gold-400 transition-colors text-sm">Employment Law</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2025 Mentes Firm. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-gray-500 hover:text-gold-400 text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-gold-400 text-sm transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-gold-400 text-sm transition-colors">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button id="scrollTopBtn" class="scroll-top fixed bottom-6 right-6 w-12 h-12 bg-gold-500 hover:bg-gold-600 text-white flex items-center justify-center z-40 shadow-lg transition-colors">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 80) {
+                navbar.classList.add('bg-navy-900/95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-navy-900/95', 'backdrop-blur-md', 'shadow-lg');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ===== MOBILE MENU =====
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // ===== TESTIMONIAL SLIDER =====
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentSlide = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            resetAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            resetAutoSlide();
+        });
+
+        startAutoSlide();
+
+        // ===== CONTACT FORM =====
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate form submission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="animate-pulse">Sending...</span>';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                contactForm.style.display = 'none';
+                formSuccess.classList.remove('hidden');
+                lucide.createIcons();
+            }, 1500);
+        });
+
+        // ===== SCROLL TO TOP =====
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 400) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== SMOOTH SCROLL FOR ALL ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.practice-card, .team-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
